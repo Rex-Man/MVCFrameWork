@@ -7,10 +7,16 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oocl.mob.opencvproject.EventClass.MyEventClass;
+import com.oocl.mob.opencvproject.EventClass.UserEventClass;
 import com.oocl.mob.opencvproject.R;
 import com.oocl.mob.opencvproject.R2;
 import com.oocl.mob.opencvproject.ViewController.LoginController;
 import com.oocl.mob.opencvproject.ViewModel.UserModel;
+import com.oocl.mob.opencvproject.common.EventBusUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 
@@ -31,35 +37,45 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EventBusUtils.register(this);
         ButterKnife.bind(this);
         loginController=new LoginController();
     }
     @OnClick(R2.id.userLogin) void LoginFunction()
     {
-        String showMessage="";
         try {
-            boolean checkResult=loginController.checkUserInformation(userNameET.getText().toString(),userPasswordET.getText().toString());
-            if(checkResult)
-            {
-                Intent intent=new Intent(LoginActivity.this,MainMVCActivity.class);
-                Bundle bundle=new Bundle();
-                UserModel userModel=new UserModel();
-                userModel.setUserName(userNameET.getText().toString());
-                userModel.setUserPassword(userPasswordET.getText().toString());
-                bundle.putParcelable("UserModel",userModel);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }else{
-                showMessage="User Name or User Password are not correct.";
-            }
+            loginController.checkUserInformation(userNameET.getText().toString(),userPasswordET.getText().toString());
         } catch (IOException e) {
             Log.e(Tag,"Login Exception",e);
 
         }
-        if (!showMessage.isEmpty())
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,priority = 1)
+    public void messagePriorityOneEvent(UserEventClass event)
+    {
+        if(event.getUserModel()!=null)
         {
-            Toast.makeText(this,showMessage,Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(LoginActivity.this,MainMVCActivity.class);
+            Bundle bundle=new Bundle();
+            UserModel userModel=new UserModel();
+            userModel.setUserName(userNameET.getText().toString());
+            userModel.setUserPassword(userPasswordET.getText().toString());
+            bundle.putParcelable("UserModel",userModel);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }else{
+            String message="Your User name or password may be not correct! Please try again.";
+            if(!event.getErrorMessage().isEmpty()) {
+                message=event.getErrorMessage();
+            }
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBusUtils.unregister(this);
     }
 
 }

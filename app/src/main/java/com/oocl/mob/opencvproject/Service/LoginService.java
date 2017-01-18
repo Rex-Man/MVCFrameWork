@@ -24,20 +24,24 @@ public class LoginService extends BaseService<LoginServiceImpl> {
 
         LoginServiceImpl loginServiceImpl = createObject(LoginServiceImpl.class);
         Call<User> call = loginServiceImpl.checkUserInformation(userName,password);
-        call.enqueue(new Callback<User>() {
+        Response<User> userResponse=call.execute();
+        return userResponse.body();
 
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    User user =response.body();
-                    Log.i("",user.getUserPassword());
+//        call.enqueue(new Callback<User>() {
+//
+//                @Override
+//                public void onResponse(Call<User> call, Response<User> response) {
+//                    User user =response.body();
+//                    Log.i("",user.getUserPassword());
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<User> call, Throwable t) {
+//                    Log.e("eooro","asdf",t);
+//                }
+//            });
 
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.e("eooro","asdf",t);
-                }
-            });
 
     }
 
