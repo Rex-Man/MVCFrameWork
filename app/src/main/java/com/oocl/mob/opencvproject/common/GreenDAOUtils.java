@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import com.oocl.mob.opencvproject.MyApplication;
 import com.oocl.mob.opencvproject.greendao.db.DaoMaster;
+import com.oocl.mob.opencvproject.greendao.db.DaoSession;
 
 /**
  * Created by manre on 1/19/17.
@@ -30,7 +32,23 @@ public class GreenDAOUtils {
             {
                 if(mInstance==null)
                 {
+
                     mInstance=new GreenDAOUtils(context);
+                }
+            }
+        }
+        return mInstance;
+    }
+    public static GreenDAOUtils getmInstance()
+    {
+        if(mInstance==null)
+        {
+            synchronized (GreenDAOUtils.class)
+            {
+                if(mInstance==null)
+                {
+
+                    mInstance=new GreenDAOUtils(MyApplication.getContext());
                 }
             }
         }
@@ -54,7 +72,16 @@ public class GreenDAOUtils {
         SQLiteDatabase db=openHelper.getReadableDatabase();
         return db;
     }
-
+    public DaoSession getReadableDaoSession()
+    {
+        DaoMaster daoMaster=new DaoMaster(getReadableDatabase());
+        return daoMaster.newSession();
+    }
+    public DaoSession getWritableDaoSession()
+    {
+        DaoMaster daoMaster=new DaoMaster(getWritableDatabase());
+        return daoMaster.newSession();
+    }
 
 
 

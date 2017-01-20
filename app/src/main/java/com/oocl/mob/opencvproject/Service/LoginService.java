@@ -4,6 +4,7 @@ package com.oocl.mob.opencvproject.Service;
 import android.util.Log;
 
 import com.oocl.mob.opencvproject.Service.Retrofit.LoginServiceImpl;
+import com.oocl.mob.opencvproject.greendao.UserDaoImpl;
 import com.oocl.mob.opencvproject.model.User;
 
 import java.io.IOException;
@@ -43,6 +44,12 @@ public class LoginService extends BaseService<LoginServiceImpl> {
 //            });
 
 
+    }
+
+    public void InsertUser(User user)
+    {
+        UserDaoImpl userDao=new UserDaoImpl();
+        userDao.insert(user);
     }
 
 }

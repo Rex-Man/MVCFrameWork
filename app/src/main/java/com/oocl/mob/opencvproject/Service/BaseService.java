@@ -1,5 +1,7 @@
 package com.oocl.mob.opencvproject.Service;
 
+import com.oocl.mob.opencvproject.greendao.BaseDao;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,4 +39,6 @@ public class BaseService<T>  {
         return (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
+
+
 }
