@@ -45,6 +45,13 @@ android {
 
 }
 
+greendao{
+    schemaVersion 1000
+    daoPackage 'com.oocl.mob.opencvproject.greendao.db'
+    targetGenDir  'src/main/java'
+
+}
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -63,6 +70,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao-generator:3.2.0'
     testCompile 'junit:junit:4.12'
 }
 

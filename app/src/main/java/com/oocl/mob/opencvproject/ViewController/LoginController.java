@@ -27,8 +27,8 @@ public class LoginController {
     public void checkUserInformation(String userName,String userPassword) throws IOException {
 
          Handler myHandler =new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
+                @Override
+                public void handleMessage(Message msg) {
 
                 if(msg.what==0x123) {
                     UserModel userModel = msg.getData().getParcelable("userLoginInfor");

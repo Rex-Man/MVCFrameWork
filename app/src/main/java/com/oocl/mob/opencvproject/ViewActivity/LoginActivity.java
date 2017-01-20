@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             String message="Your User name or password may be not correct! Please try again.";
-            if(!event.getErrorMessage().isEmpty()) {
+            if(event.getErrorMessage()!=null && !event.getErrorMessage().isEmpty()) {
                 message=event.getErrorMessage();
             }
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
