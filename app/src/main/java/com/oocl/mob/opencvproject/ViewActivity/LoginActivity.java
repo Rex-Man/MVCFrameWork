@@ -55,13 +55,11 @@ public class LoginActivity extends AppCompatActivity {
     {
         if(event.getUserModel()!=null)
         {
-            Intent intent=new Intent(LoginActivity.this,MainMVCActivity.class);
-            Bundle bundle=new Bundle();
+            Intent intent=new Intent(this,MainMVCActivity.class);
             UserModel userModel=new UserModel();
             userModel.setUserName(userNameET.getText().toString());
             userModel.setUserPassword(userPasswordET.getText().toString());
-            bundle.putParcelable("UserModel",userModel);
-            intent.putExtras(bundle);
+            intent.putExtra("UserModelLogin",userModel);
             startActivity(intent);
         }else{
             String message="Your User name or password may be not correct! Please try again.";

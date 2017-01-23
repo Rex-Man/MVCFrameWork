@@ -38,7 +38,7 @@ public abstract class BaseDao<T,K> {
         K k=(K)method.invoke(daoSession);
         Class kClazz=getKClass();
         String functionNameForK="insert";
-        Method methodK=kClazz.getDeclaredMethod(functionNameForK);
+        Method methodK=kClazz.getDeclaredMethod(functionNameForK,tClazz);
         methodK.invoke(k,t);
     }
 

@@ -46,7 +46,7 @@ public class UserModel implements Parcelable{
             UserModel user =new UserModel();
             user.setUserName(parcel.readString());
             user.setUserPassword(parcel.readString());
-            return null;
+            return user;
         }
 
         @Override

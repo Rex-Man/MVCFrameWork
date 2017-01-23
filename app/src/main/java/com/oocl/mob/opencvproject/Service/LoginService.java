@@ -8,6 +8,7 @@ import com.oocl.mob.opencvproject.greendao.UserDaoImpl;
 import com.oocl.mob.opencvproject.model.User;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +51,12 @@ public class LoginService extends BaseService<LoginServiceImpl> {
     {
         UserDaoImpl userDao=new UserDaoImpl();
         userDao.insert(user);
+    }
+
+    public List<User> queryUserList()
+    {
+        UserDaoImpl userDao=new UserDaoImpl();
+        return userDao.queryUserList();
     }
 
 }

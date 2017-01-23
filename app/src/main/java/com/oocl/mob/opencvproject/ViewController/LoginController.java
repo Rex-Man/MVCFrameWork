@@ -15,6 +15,7 @@ import com.oocl.mob.opencvproject.model.User;
 import org.opencv.ml.Boost;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by manre on 1/13/17.
@@ -41,5 +42,19 @@ public class LoginController {
 
         UserThread runnable=new UserThread(userName,userPassword,myHandler);
         runnable.start();
+    }
+    public void saveUserinformation(UserModel userModel)
+    {
+        User user=new User();
+        user.setUserName(userModel.getUserName());
+        user.setUserPassword(user.getUserPassword());
+        LoginService loginService=new LoginService();
+        loginService.InsertUser(user);
+    }
+    public List<User> getUserList()
+    {
+        LoginService loginService=new LoginService();
+        List<User> users=loginService.queryUserList();
+        return users;
     }
 }
