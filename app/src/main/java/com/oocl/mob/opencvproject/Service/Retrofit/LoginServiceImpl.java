@@ -3,6 +3,7 @@ package com.oocl.mob.opencvproject.Service.Retrofit;
 import com.oocl.mob.opencvproject.model.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -14,6 +15,7 @@ public interface LoginServiceImpl {
 
     @POST("user")
     Call<User> checkUserInformation(@Query("userName") String userName, @Query("userPassword") String userPassword);
-
+    @POST("user/new")
+    Call<User> createUser(@Body User user);
 
 }
